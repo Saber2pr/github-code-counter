@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-19 20:08:30
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-23 16:32:06
+ * @Last Modified time: 2019-06-23 19:42:40
  */
 import { GitHubAPI } from './url'
 import {
@@ -15,7 +15,9 @@ import {
 } from '@saber2pr/types-github-api'
 import { Languages, RepoLang } from './types'
 import { axios } from './http'
-import { async_map } from '@saber2pr/fp'
+import { async_map, range } from '@saber2pr/fp'
+
+const MAX_REQUEST_LIMIT = 6
 
 export const getUserInfor = async (userId: string) =>
   await getPage<User>(`${GitHubAPI.users}/${userId}`)
@@ -102,30 +104,44 @@ export async function getRepoLangs(userId: string, repo: string) {
   return result.data
 }
 
+const batchedReposRequest = (userId: string, repos: Repository[]) =>
+  async_map(
+    repos,
+    async repo =>
+      <RepoLang>{
+        name: repo.name,
+        langs: await getRepoLangs(userId, repo.name).catch(() => ({}))
+      }
+  )
+
+const batchedRepoPagesRequest = async (userId: string, pages: number[]) =>
+  Promise.all(
+    pages.map(page => getUserReposPage(userId, page, MAX_REQUEST_LIMIT))
+  )
+
 export async function getAllRepoLangs(
   userId: string,
-  onProgress?: (res: RepoLang[]) => void
+  onProgress?: (value: RepoLang[]) => void
 ) {
-  let current = 1
-  let repos = await getUserReposPage(userId, current)
-
   const result: RepoLang[] = []
 
-  while (repos.length) {
-    const repoInfors = await async_map(repos, async repo => {
-      const langs = await getRepoLangs(userId, repo.name).catch(() => ({}))
-      return {
-        name: repo.name,
-        langs
-      }
-    })
+  const request = async (pageStart: number = 1): Promise<RepoLang[]> => {
+    const reposMap = await batchedRepoPagesRequest(userId, [
+      ...range(pageStart, pageStart + MAX_REQUEST_LIMIT)
+    ])
 
-    result.push(...repoInfors)
+    const batchedRequestTasks = reposMap.map(repos =>
+      batchedReposRequest(userId, repos)
+    )
 
-    onProgress && onProgress(result)
+    for await (const response of batchedRequestTasks) {
+      if (!response.length) return result
+      result.push(...response)
+      onProgress && onProgress(result)
+    }
 
-    repos = await getUserReposPage(userId, ++current)
+    return await request(pageStart + MAX_REQUEST_LIMIT)
   }
 
-  return result
+  return request()
 }

@@ -4,6 +4,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "jsx": "react",
+    "downlevelIteration": true,
     "lib": [
       "dom",
       "es2015",
