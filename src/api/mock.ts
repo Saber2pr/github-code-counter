@@ -1,6 +1,6 @@
 import { RepoLang } from './types'
 
-const data: RepoLang[] = [
+export const data: RepoLang[] = [
   {
     name: 'test1',
     langs: {

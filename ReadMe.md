@@ -1,11 +1,15 @@
-# react-ts
+# github-code-counter
 
-> react + ts + less + webpack.
+> count your code on github.
 
 ```bash
-npm i
+yarn start
 
-npm start
+yarn run dev
 
-npm run build
+yarn test
 ```
+
+> Author
+
+> saber2pr

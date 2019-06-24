@@ -1,7 +1,9 @@
 import axios from 'axios'
+import { store } from '../store'
 
 axios.interceptors.request.use(config => {
-  config.headers.Authorization = `Basic ${btoa('saber2pr:rwasqd34')}`
+  const { userId, password } = store.getState()
+  config.headers.Authorization = `Basic ${btoa(`${userId}:${password}`)}`
 
   return config
 })

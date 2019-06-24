@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { Table, Delay, Count, Loading } from './components'
 import { useUserAllRepo } from './hook'
 import './app.less'
+import { store } from './store'
 
 export const App = () => {
-  const id = 'saber2pr'
+  const { userId: id } = store.getState()
   const [langs, count] = useUserAllRepo(id)
   const [isDone, setStatu] = useState(false)
 
@@ -40,7 +41,9 @@ export const App = () => {
           <Table langs={langs}></Table>
         </section>
       </main>
-      <footer className="footer">{isDone && 'by saber2pr'}</footer>
+      <footer className="footer">
+        <p className="auth">{isDone && 'by saber2pr'}</p>
+      </footer>
     </>
   )
 }

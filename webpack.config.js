@@ -52,7 +52,7 @@ module.exports = WebpackConfig({
     ]
   },
   plugins: [new HtmlWebpackPlugin({
-    templateContent: templateContent('react-ts', {
+    templateContent: templateContent('github-code-counter', {
       injectBody: '<div id="root"></div>'
     })
   }), extractLess]
