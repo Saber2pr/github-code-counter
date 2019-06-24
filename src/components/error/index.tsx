@@ -1,5 +1,6 @@
 import React from 'react'
 import { store } from '../../store'
+import { Local } from '../../local'
 import './style.less'
 
 export interface Error {}
@@ -25,6 +26,7 @@ export const Error = ({  }: Error) => {
           ))}
         </tbody>
       </table>
+      <button onClick={() => Local.clear()}>clear localstorage</button>
     </div>
   )
 }
