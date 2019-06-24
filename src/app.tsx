@@ -3,6 +3,9 @@ import { Table, Delay, Count, Loading } from './components'
 import { useUserAllRepo } from './hook'
 import './app.less'
 import { store } from './store'
+import { Result } from './components/result'
+import { Lazy } from './components/lazy'
+import { Fork } from './components/fork'
 
 export const App = () => {
   const { userInfor, userId } = store.getState()
@@ -43,9 +46,13 @@ export const App = () => {
         <section className="table">
           <Table langs={langs}></Table>
         </section>
+
+        <section>
+          <Fork />
+        </section>
       </main>
       <footer className="footer">
-        <p className="auth">{isDone && 'by saber2pr'}</p>
+        <Lazy>{isDone && <Result langs={langs} />}</Lazy>
       </footer>
     </>
   )

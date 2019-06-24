@@ -10,5 +10,5 @@ export const Delay = ({ time, children }: Delay) => {
 
   setTimeout(() => alt(children), time)
 
-  return <div className="Delay">{comp}</div>
+  return <>{comp}</>
 }

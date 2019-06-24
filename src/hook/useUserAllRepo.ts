@@ -13,10 +13,7 @@ export const useUserAllRepo = (
     getAllRepoLangs(id, res => {
       update(merge(res))
       setCount(res.length)
-    }).then(langs => {
-      console.log('done', langs, merge(langs))
-      onDone && onDone(langs)
-    })
+    }).then(langs => onDone && onDone(langs))
   }, [id])
 
   return [langs, count]

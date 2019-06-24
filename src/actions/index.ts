@@ -2,6 +2,7 @@ import { getUserInfor } from '../api'
 import { AsyncAction } from '@saber2pr/redux/lib/state'
 import { State } from '../state'
 import { User } from '@saber2pr/types-github-api'
+import H from '@saber2pr/router'
 
 export namespace Action {
   export const login = (
@@ -12,7 +13,9 @@ export namespace Action {
     dispatch('password', password)
 
     const user = await getUserInfor(userId)
+
     dispatch('userInfor', user)
+    H.pushHash('/main')
 
     return user
   }

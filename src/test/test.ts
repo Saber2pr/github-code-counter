@@ -1,4 +1,6 @@
-import { range } from '@saber2pr/fp'
+import { range, zips } from '@saber2pr/fp'
 
-console.log([...range(1, 7)])
-console.log([...range(7, 13)])
+const ts = [...range(3)]
+const ps = ['a', 'b', 'c']
+
+// console.log(zips(ts, ps))

@@ -8,6 +8,7 @@ export const Error = ({  }: Error) => {
   const error = store.getState().error
   return (
     <div className="Error">
+      <h1>Exception</h1>
       <table>
         <thead>
           <tr>

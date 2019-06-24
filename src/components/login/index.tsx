@@ -1,14 +1,13 @@
 import React, { useRef } from 'react'
 import { store } from '../../store'
 import './style.less'
-import { usePush } from '@saber2pr/router'
 import { Action } from '../../actions'
+import { Icon } from '../../static/iconfont'
+import { Local } from '../../local'
 
 export const Login = () => {
   const user_ref = useRef<HTMLInputElement>()
   const password_ref = useRef<HTMLInputElement>()
-
-  const [push] = usePush()
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -16,7 +15,9 @@ export const Login = () => {
     const password = password_ref.current.value
 
     if (userId && password) {
-      store.dispatch(Action.login(userId, password)).then(() => push('/main'))
+      Local.clearAuth()
+      Local.saveUserAuth(userId, password)
+      store.dispatch(Action.login(userId, password))
     }
   }
 
@@ -31,9 +32,11 @@ export const Login = () => {
         <form onSubmit={onSubmit}>
           <ul>
             <li>
+              <Icon.Zhanghao />
               Github id: <input ref={user_ref} type="text" />
             </li>
             <li>
+              <Icon.Mima />
               Password: <input ref={password_ref} type="password" />
             </li>
             <li>
