@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
 import { store } from '../../store'
-import './style.less'
 import { Action } from '../../actions'
 import { Icon } from '../../static/iconfont'
 import { Local } from '../../local'
+import './style.less'
 
 export const Login = () => {
   const user_ref = useRef<HTMLInputElement>()

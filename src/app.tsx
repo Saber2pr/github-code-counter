@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import { Table, Delay, Count, Loading } from './components'
+import { Table, Delay, Count, Loading, Result, Lazy, Fork } from './components'
 import { useUserAllRepo } from './hook'
-import './app.less'
 import { store } from './store'
-import { Result } from './components/result'
-import { Lazy } from './components/lazy'
-import { Fork } from './components/fork'
+import './app.less'
 
 export const App = () => {
   const { userInfor, userId } = store.getState()

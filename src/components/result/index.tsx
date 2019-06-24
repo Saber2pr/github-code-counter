@@ -1,9 +1,9 @@
 import React from 'react'
-import './style.less'
 import { ReposLanguages } from '../../api'
 import { range, zips } from '@saber2pr/fp'
 import { Delay } from '../delay'
 import { sumLang, byteToLines } from '../../utils'
+import './style.less'
 
 export interface Result {
   langs: ReposLanguages

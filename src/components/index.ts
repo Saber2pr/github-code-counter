@@ -1,6 +1,7 @@
 export * from './count'
 export * from './delay'
 export * from './error'
+export * from './fork'
 export * from './lazy'
 export * from './loading'
 export * from './login'

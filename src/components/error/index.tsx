@@ -1,6 +1,6 @@
 import React from 'react'
-import './style.less'
 import { store } from '../../store'
+import './style.less'
 
 export interface Error {}
 

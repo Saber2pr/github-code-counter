@@ -1,4 +1,4 @@
-# [github-code-counter](https://saber2pr.github.io/MyWeb/build/github-countYourCode/build/)
+# [count-your-code](https://saber2pr.github.io/MyWeb/build/github-countYourCode/build/)
 
 > count your code on github.
 

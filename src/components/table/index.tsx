@@ -1,8 +1,7 @@
 import React from 'react'
 import { ReposLanguages } from '../../api'
+import { convertMapToTuple, sum, byteToLines } from '../../utils'
 import './style.less'
-import { convertMapToTuple, sum } from '../../utils/lang-calc'
-import { byteToLines } from '../../utils'
 
 export interface Table {
   langs: ReposLanguages

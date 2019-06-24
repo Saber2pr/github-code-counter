@@ -1,6 +1,6 @@
 import React, { Props, useRef, useEffect, useState, ReactNode } from 'react'
-import './style.less'
 import { throttle } from '../../utils'
+import './style.less'
 
 export interface Lazy extends Props<any> {}
 

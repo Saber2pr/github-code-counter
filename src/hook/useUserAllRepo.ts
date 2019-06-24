@@ -1,5 +1,5 @@
-import { getAllRepoLangs, ReposLanguages, RepoLang } from '../api'
 import { useState, useEffect } from 'react'
+import { getAllRepoLangs, ReposLanguages, RepoLang } from '../api'
 import { merge } from '../utils'
 
 export const useUserAllRepo = (

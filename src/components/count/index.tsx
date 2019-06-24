@@ -1,9 +1,8 @@
 import React from 'react'
-import { useUserInfor } from '../../hook'
 import './style.less'
 
 export interface Count {
-  max:number
+  max: number
   count: number
   isDone: boolean
   render?: () => JSX.Element

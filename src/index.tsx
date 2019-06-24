@@ -1,14 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { App } from './app'
-import './index.less'
-import 'normalize.css'
-import 'animate.css'
 import { Router, Route, hashHistory } from '@saber2pr/router'
+
+import { App } from './app'
 import { Login, Error } from './components'
 import { Local } from './local'
 import { store } from './store'
 import { Action } from './actions'
+
+import './index.less'
+import 'normalize.css'
+import 'animate.css'
 
 ReactDOM.render(
   <Router history={hashHistory}>

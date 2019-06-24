@@ -11,7 +11,7 @@ const {
 } = require('@saber2pr/webpack-configer')
 
 module.exports = WebpackConfig({
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.tsx',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
@@ -52,7 +52,7 @@ module.exports = WebpackConfig({
     ]
   },
   plugins: [new HtmlWebpackPlugin({
-    templateContent: templateContent('github-code-counter', {
+    templateContent: templateContent('count-your-code', {
       injectBody: '<div id="root"></div>'
     })
   }), extractLess]
