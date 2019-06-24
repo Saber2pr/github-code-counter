@@ -9,6 +9,9 @@ export const Login = () => {
   const user_ref = useRef<HTMLInputElement>()
   const password_ref = useRef<HTMLInputElement>()
 
+  const auth = Local.getUserAuth()
+  const { username, password } = auth || { username: '', password: '' }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const userId = user_ref.current.value
@@ -33,11 +36,17 @@ export const Login = () => {
           <ul>
             <li>
               <Icon.Zhanghao />
-              Github id: <input ref={user_ref} type="text" />
+              Github id:{' '}
+              <input ref={user_ref} type="text" defaultValue={username} />
             </li>
             <li>
               <Icon.Mima />
-              Password: <input ref={password_ref} type="password" />
+              Password:{' '}
+              <input
+                ref={password_ref}
+                type="password"
+                defaultValue={password}
+              />
             </li>
             <li>
               <button>submit</button>
