@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { store } from '../../store'
 import './style.less'
 import { usePush } from '@saber2pr/router'
+import { Action } from '../../actions'
 
 export const Login = () => {
   const user_ref = useRef<HTMLInputElement>()
@@ -15,9 +16,7 @@ export const Login = () => {
     const password = password_ref.current.value
 
     if (userId && password) {
-      store.dispatch('userId', userId)
-      store.dispatch('password', password)
-      push('/main')
+      store.dispatch(Action.login(userId, password)).then(() => push('/main'))
     }
   }
 

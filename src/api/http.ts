@@ -1,15 +1,44 @@
-import axios from 'axios'
+import { Request } from '@saber2pr/request'
 import { store } from '../store'
+import H from '@saber2pr/router'
+import { model } from '../components';
+
+const axios = new Request({
+  timeout: 20000
+})
 
 axios.interceptors.request.use(config => {
   const { userId, password } = store.getState()
-  config.headers.Authorization = `Basic ${btoa(`${userId}:${password}`)}`
+
+  if (userId && password) {
+    config.headers.Authorization = `Basic ${btoa(`${userId}:${password}`)}`
+  }
 
   return config
 })
 
 axios.interceptors.response.use(res => {
-  if (res.status !== 200) return Promise.reject()
+  if (res.status === 401) {
+    model.newInstance({}, notification => {
+      notification.notice({
+        content: '用户名或密码错误'
+      })
+    })
+    H.pushHash('/login')
+    return null
+  }
+  if (res.status === 403) {
+    return Promise.reject() as any
+  }
+
+  if (res.status !== 200) {
+    store.dispatch('error', {
+      status: res.status,
+      statusText: res.statusText,
+      message: JSON.stringify(res.data, null, 2)
+    })
+    H.pushHash('/error')
+  }
 
   return res
 })

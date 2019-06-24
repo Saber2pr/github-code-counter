@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-19 20:08:30
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-23 19:42:40
+ * @Last Modified time: 2019-06-24 10:47:47
  */
 import { GitHubAPI } from './url'
 import {
@@ -93,7 +93,8 @@ export async function getPage<T>(
     }
   })
 
-  return result.data
+  if (result) return result.data
+  return Promise.reject(`getPage Error.${url}:${JSON.stringify(extraParams)}`)
 }
 
 export async function getRepoLangs(userId: string, repo: string) {
@@ -106,7 +107,7 @@ export async function getRepoLangs(userId: string, repo: string) {
 
 const batchedReposRequest = (userId: string, repos: Repository[]) =>
   async_map(
-    repos,
+    repos.filter(r => !r.fork),
     async repo =>
       <RepoLang>{
         name: repo.name,
@@ -135,7 +136,11 @@ export async function getAllRepoLangs(
     )
 
     for await (const response of batchedRequestTasks) {
-      if (!response.length) return result
+      if (!response.length) {
+        onProgress && onProgress(result)
+        return result
+      }
+
       result.push(...response)
       onProgress && onProgress(result)
     }
@@ -143,5 +148,5 @@ export async function getAllRepoLangs(
     return await request(pageStart + MAX_REQUEST_LIMIT)
   }
 
-  return request()
+  return await request()
 }

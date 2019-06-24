@@ -37,16 +37,16 @@ export const Table = ({ langs }: Table) => {
       <thead>
         <tr>
           <th>语言类型</th>
-          <th>代码行数</th>
           <th>使用次数</th>
+          <th>字节(bytes)</th>
         </tr>
       </thead>
       <tbody>
         {data.map(([lang, { count, repos }]) => (
           <tr key={lang}>
             <th>{lang}</th>
-            <td>{count}</td>
             <td>{repos}</td>
+            <td>{count}</td>
           </tr>
         ))}
       </tbody>

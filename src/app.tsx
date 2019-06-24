@@ -5,9 +5,12 @@ import './app.less'
 import { store } from './store'
 
 export const App = () => {
-  const { userId: id } = store.getState()
-  const [langs, count] = useUserAllRepo(id)
+  const { userInfor, userId } = store.getState()
+
+  const { public_repos } = userInfor
+
   const [isDone, setStatu] = useState(false)
+  const [langs, count] = useUserAllRepo(userId, () => setStatu(true))
 
   return (
     <>
@@ -27,10 +30,10 @@ export const App = () => {
             <li>
               <Delay time={2000}>
                 <Count
-                  id={id}
+                  max={public_repos}
                   count={count}
-                  onDone={setStatu}
                   render={() => <Loading />}
+                  isDone={isDone}
                 />
               </Delay>
             </li>
