@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Table, Delay, Count, Loading, Result, Lazy, Fork } from './components'
+import { Table, Delay, Count, Loading, Result, Fork } from './components'
 import { useUserAllRepo } from './hook'
 import { store } from './store'
 import './app.less'
@@ -48,9 +48,7 @@ export const App = () => {
           <Fork />
         </section>
       </main>
-      <footer className="footer">
-        <Lazy>{isDone && <Result langs={langs} />}</Lazy>
-      </footer>
+      <footer className="footer">{isDone && <Result langs={langs} />}</footer>
     </>
   )
 }
